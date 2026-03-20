@@ -3,9 +3,9 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-CHUNK_SIZE = 500
-CHUNK_OVERLAP = 50
+EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200
 
 
 def create_vectorstore(folder: str = "data") -> FAISS:
