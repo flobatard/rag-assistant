@@ -1,20 +1,13 @@
-from rag_pipeline import create_vectorstore, search
+import subprocess
+import sys
+from pathlib import Path
 
-
-def main():
-    vectorstore = create_vectorstore()
-
-    while True:
-        query = input("\nQuestion: ")
-        if query == "exit":
-            break
-
-        results = search(query, vectorstore)
-
-        print("\n🔎 Contexte trouvé:")
-        for r in results:
-            print("-", r[:200])
-
+PORT = 8501
 
 if __name__ == "__main__":
-    main()
+    app_path = Path(__file__).parent / "streamlit_app.py"
+    print(f"Démarrage de l'interface RAG sur http://localhost:{PORT}")
+    subprocess.run(
+        [sys.executable, "-m", "streamlit", "run", str(app_path), "--server.port", str(PORT)],
+        check=True,
+    )
