@@ -1,18 +1,20 @@
-from rag_pipeline import create_index, search
+from rag_pipeline import create_vectorstore, search
+
 
 def main():
-    index, chunks = create_index()
+    vectorstore = create_vectorstore()
 
     while True:
         query = input("\nQuestion: ")
         if query == "exit":
             break
 
-        results = search(query, index, chunks)
+        results = search(query, vectorstore)
 
         print("\n🔎 Contexte trouvé:")
         for r in results:
             print("-", r[:200])
+
 
 if __name__ == "__main__":
     main()
