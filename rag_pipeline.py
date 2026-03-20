@@ -22,6 +22,6 @@ def create_vectorstore(folder: str = "data") -> FAISS:
     return FAISS.from_documents(chunks, embeddings)
 
 
-def search(query: str, vectorstore: FAISS, k: int = 3) -> list[str]:
+def search(query: str, vectorstore: FAISS, k: int = 10) -> list[str]:
     results = vectorstore.similarity_search(query, k=k)
     return [doc.page_content for doc in results]
