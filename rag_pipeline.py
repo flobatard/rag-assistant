@@ -1,9 +1,8 @@
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
 import os
 
 DB_PATH = "db/"
@@ -27,6 +26,7 @@ def create_vector_db():
     chunks = splitter.split_documents(docs)
 
     embeddings = OpenAIEmbeddings()
+    FAISS.load_local(DB_PATH, embeddings, allow_dangerous_deserialization=True)
     db = FAISS.from_documents(chunks, embeddings)
 
     db.save_local(DB_PATH)
